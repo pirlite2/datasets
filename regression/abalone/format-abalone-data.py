@@ -53,10 +53,10 @@ def output_record(fDescriptor, record):
 	
 #-------------------------------------------------------------------------------
 
-def output_binary_header(fDescriptor, recordLength, noExamples):
-	"Write pattern vetor length & no. of patterns to binary DAT file as 32-bit unsigned int"
+def output_binary_header(fDescriptor, patternVectorLength, noExamples):
+	"Write pattern vector length & no. of patterns to binary DAT file as 32-bit unsigned int"
 
-	fDescriptor.write(np.uint32(recordLength))
+	fDescriptor.write(np.uint32(patternVectorLength))
 	fDescriptor.write(np.uint32(noExamples))
 
 	return
@@ -162,7 +162,7 @@ for n in range(0, noPartitions):
 	random.seed(ranSeed)
 	
 	# Output test dataset
-	output_binary_header(fTestBin, recordLength, noTestExamples)
+	output_binary_header(fTestBin, recordLength - 1, noTestExamples)
 	noTestPatternsEmitted = 0
 	for i in range(0, noTestExamples):
 		r = random.randint(0, noRecords - 1)
@@ -175,7 +175,7 @@ for n in range(0, noPartitions):
 	assert noTestPatternsEmitted == noTestExamples
 					
 	# Output validation dataset
-	output_binary_header(fValidationBin, recordLength, noValidationExamples)
+	output_binary_header(fValidationBin, recordLength - 1, noValidationExamples)
 	noValidationPatternsEmitted = 0
 	for i in range(0, noValidationExamples):
 		r = random.randint(0, noRecords - 1)
@@ -188,12 +188,12 @@ for n in range(0, noPartitions):
 	assert noValidationPatternsEmitted == noValidationExamples
 		
 	# Output training dataset
-	output_binary_header(fTrainBin, recordLength, noTrainingExamples)
+	output_binary_header(fTrainBin, recordLength - 1, noTrainingExamples)
 	noTrainingPatternsEmitted = 0
 	for i in range(0, noRecords):
 		if selectionArray[i] == False:
 			output_record(fTrain, dataset[i])
-			output_binary_record(fTrainBin, dataset[r])
+			output_binary_record(fTrainBin, dataset[i])
 			noTrainingPatternsEmitted += 1	
 	assert noTrainingPatternsEmitted == noTrainingExamples
 			

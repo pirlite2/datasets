@@ -23,7 +23,8 @@
 
 #include <iostream>
 
-#include <CDataset/CDataset.h>
+//#include <CDataset/CDataset.h>
+#include "CDataset-pir.h"
 
 using namespace std;
 
@@ -40,6 +41,8 @@ int main(int argc, char* argv[])
 
 	CDataset<double> dataset;
 	dataset.Load(argv[1]);
+
+
 
 
 

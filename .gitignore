@@ -2,20 +2,24 @@
 test.py
 notes
 *.odt
+regression/check-binary-dat-file/CDataset-pir.h
 
 # Ignore files that can be automatically regenerated
 *.dat
 *_training-*.data
 *_validation-*.data
 *_test-*.data
+*_recoded.data
+
+check-binary-dat-file
 
 # Omit CodeBlocks files
 *.cbp
 *.depend
 *.layout
-*/bin
-*/obj
-*.o
+bin/
+obj/
+
 
 
 
