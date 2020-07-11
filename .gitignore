@@ -1,0 +1,24 @@
+# Miscellaneous development files
+test.py
+notes
+*.odt
+
+# Ignore files that can be automatically regenerated
+*.dat
+*_training-*.data
+*_validation-*.data
+*_test-*.data
+
+# Omit CodeBlocks files
+*.cbp
+*.depend
+*.layout
+*/bin
+*/obj
+*.o
+
+
+
+
+
+
