@@ -28,9 +28,10 @@ author: Peter Rockett, University of Sheffield, 9.7.2020
 
 import numpy as np
 import random
+import sys
 
 # Parameters
-filename = "abalone"
+filename = "auto-mpg"
 
 noPartitions = 10
 trainingPercentage = 70.0
@@ -79,15 +80,15 @@ def output_binary_record(fDescriptor, record):
 
 #*******************************************************************************
 
-fd = open(filename + ".data", "rU")
+fd = open(filename + ".csv", "rU")
 if fd == None:
-	print("Unable to open " + filename + ".data")
-	SysExit()
+	print("Unable to open " + filename + ".csv")
+	sys.exit(1)
 	
 fRecoded = open(filename + "_recoded.data", "w")
 if fRecoded == None:
 	print("Unable to open " + filename + "_new.data")
-	SysExit()
+	sys.exit(1)
 	
 print("Processing " + filename + " dataset")
 
@@ -106,23 +107,25 @@ for line in fd:
 	#---------------------------------------------------------------------------
 	# MODIFY BELOW HERE!
 	
+	for i in range(0, 6):
+		newRecord.append(float(record[i]))
+	
 	# Recode categorical attribute
-	if record[0] == "M":
+	if record[6] == "1":
 		newRecord.append(1.0)
 		newRecord.append(0.0)
-	elif record[0] == "F":
+	elif record[6] == "2":
 		newRecord.append(0.0)
 		newRecord.append(1.0)
-	elif record[0] == "I":
+	elif record[6] == "3":
 		newRecord.append(0.0)
 		newRecord.append(0.0)
 	else:
 		print("Error @ record", noRecords)
 		SysExit()
 		
-	# Process remaining attributes
-	for i in range(1, len(record)):
-		newRecord.append(float(record[i]))
+	newRecord.append(float(record[7]))
+
 	
 	# MODIFY ABOVE HERE!
 	#---------------------------------------------------------------------------
