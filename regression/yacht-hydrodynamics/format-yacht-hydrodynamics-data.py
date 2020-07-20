@@ -19,10 +19,10 @@
 #  
 #*******************************************************************************
 """
-Format UCI dataset: abalone
+Format UCI dataset: yacht-hydrodynamics
 
 version: 0.1
-author: Peter Rockett, University of Sheffield, 9.7.2020
+author: Peter Rockett, University of Sheffield, 20.7.2020
 """
 #*******************************************************************************
 
@@ -31,7 +31,7 @@ import random
 import sys
 
 # Parameters
-filename = "abalone"
+filename = "yacht-hydrodynamics"
 
 noPartitions = 10
 trainingPercentage = 70.0
@@ -80,15 +80,15 @@ def output_binary_record(fDescriptor, record):
 
 #*******************************************************************************
 
-fd = open(filename + ".data", "rU")
+fd = open(filename + ".csv", "rU")
 if fd == None:
-	print("Unable to open " + filename + ".data")
-	SysExit()
+	print("Unable to open " + filename + ".csv")
+	sys.exit(1)
 	
 fRecoded = open(filename + "_recoded.data", "w")
 if fRecoded == None:
 	print("Unable to open " + filename + "_new.data")
-	SysExit()
+	sys.exit(1)
 	
 print("Processing " + filename + " dataset")
 
@@ -101,31 +101,13 @@ for line in fd:
 	# Tokenise input line
 	line = line.rstrip("\n")
 	record = line.split(",")
-	
+
 	newRecord = []
 	
 	#---------------------------------------------------------------------------
 	# MODIFY BELOW HERE!
 	
-	# Recode categorical attribute
-	if record[0] == "M":
-		newRecord.append(1.0)
-		newRecord.append(0.0)
-		#newRecord.append(1.0)
-	elif record[0] == "F":
-		newRecord.append(0.0)
-		newRecord.append(1.0)
-		#newRecord.append(2.0)
-	elif record[0] == "I":
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-		#newRecord.append(3.0)
-	else:
-		print("Error @ record", noRecords)
-		sys.exit(1)
-		
-	# Process remaining attributes
-	for i in range(1, len(record)):
+	for i in range(0, len(record)):
 		newRecord.append(float(record[i]))
 	
 	# MODIFY ABOVE HERE!

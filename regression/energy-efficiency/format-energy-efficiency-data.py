@@ -19,7 +19,7 @@
 #  
 #*******************************************************************************
 """
-Format UCI dataset: abalone
+Format UCI dataset energy-efficiency (predicting heating load)
 
 version: 0.1
 author: Peter Rockett, University of Sheffield, 9.7.2020
@@ -31,7 +31,7 @@ import random
 import sys
 
 # Parameters
-filename = "abalone"
+filename = "energy-efficiency"
 
 noPartitions = 10
 trainingPercentage = 70.0
@@ -80,15 +80,15 @@ def output_binary_record(fDescriptor, record):
 
 #*******************************************************************************
 
-fd = open(filename + ".data", "rU")
+fd = open(filename + ".csv", "rU")
 if fd == None:
 	print("Unable to open " + filename + ".data")
-	SysExit()
+	sys.exit(1)
 	
 fRecoded = open(filename + "_recoded.data", "w")
 if fRecoded == None:
 	print("Unable to open " + filename + "_new.data")
-	SysExit()
+	sys.exit(1)
 	
 print("Processing " + filename + " dataset")
 
@@ -107,26 +107,81 @@ for line in fd:
 	#---------------------------------------------------------------------------
 	# MODIFY BELOW HERE!
 	
-	# Recode categorical attribute
-	if record[0] == "M":
+	# X1...X5
+	for i in range(0, 5):
+		newRecord.append(float(record[i]))
+		
+	# X6
+	if record[5] == "2":
 		newRecord.append(1.0)
 		newRecord.append(0.0)
-		#newRecord.append(1.0)
-	elif record[0] == "F":
+		newRecord.append(0.0)
+	elif record[5] == "3":
 		newRecord.append(0.0)
 		newRecord.append(1.0)
-		#newRecord.append(2.0)
-	elif record[0] == "I":
+		newRecord.append(0.0)		
+	elif record[5] == "4":
 		newRecord.append(0.0)
 		newRecord.append(0.0)
-		#newRecord.append(3.0)
+		newRecord.append(1.0)
+	elif record[5] == "5":
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
 	else:
-		print("Error @ record", noRecords)
+		print("Unrecognised value for X6", record[5])
 		sys.exit(1)
 		
-	# Process remaining attributes
-	for i in range(1, len(record)):
-		newRecord.append(float(record[i]))
+	#newRecord.append(float(record[5]))
+	
+	# X7
+	newRecord.append(float(record[6]))
+
+	# X8
+	if record[7] == "0":
+		newRecord.append(1.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)		
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+	elif record[7] == "1":
+		newRecord.append(0.0)
+		newRecord.append(1.0)
+		newRecord.append(0.0)		
+		newRecord.append(0.0)
+		newRecord.append(0.0)				
+	elif record[7] == "2":
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(1.0)		
+		newRecord.append(0.0)
+		newRecord.append(0.0)	
+	elif record[7] == "3":
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)		
+		newRecord.append(1.0)
+		newRecord.append(0.0)
+	elif record[7] == "4":
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)		
+		newRecord.append(0.0)
+		newRecord.append(1.0)
+	elif record[7] == "5":
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)		
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+	else:
+		print("Unrecognised value for X7")
+		sys.exit(1)
+		
+	#newRecord.append(float(record[7]))
+		
+	# y1
+	newRecord.append(float(record[8]))
 	
 	# MODIFY ABOVE HERE!
 	#---------------------------------------------------------------------------

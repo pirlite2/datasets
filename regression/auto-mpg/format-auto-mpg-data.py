@@ -19,7 +19,7 @@
 #  
 #*******************************************************************************
 """
-Format UCI dataset: abalone
+Format UCI dataset: auto-mpg
 
 version: 0.1
 author: Peter Rockett, University of Sheffield, 9.7.2020
@@ -122,7 +122,9 @@ for line in fd:
 		newRecord.append(0.0)
 	else:
 		print("Error @ record", noRecords)
-		SysExit()
+		sys.exit(1)
+		
+	#newRecord.append(float(record[6])
 		
 	newRecord.append(float(record[7]))
 

@@ -19,7 +19,7 @@
 #  
 #*******************************************************************************
 """
-Format UCI dataset: abalone
+Format UCI dataset: servo
 
 version: 0.1
 author: Peter Rockett, University of Sheffield, 9.7.2020
@@ -31,9 +31,12 @@ import random
 import sys
 
 # Parameters
-filename = "abalone"
+filename = "servo"
 
 noPartitions = 10
+
+
+
 trainingPercentage = 70.0
 validationPercentage = 10.0
 testPercentage = 20.0
@@ -83,12 +86,12 @@ def output_binary_record(fDescriptor, record):
 fd = open(filename + ".data", "rU")
 if fd == None:
 	print("Unable to open " + filename + ".data")
-	SysExit()
+	sys.exit(1)
 	
 fRecoded = open(filename + "_recoded.data", "w")
 if fRecoded == None:
 	print("Unable to open " + filename + "_new.data")
-	SysExit()
+	sys.exit(1)
 	
 print("Processing " + filename + " dataset")
 
@@ -107,25 +110,75 @@ for line in fd:
 	#---------------------------------------------------------------------------
 	# MODIFY BELOW HERE!
 	
-	# Recode categorical attribute
-	if record[0] == "M":
+	if record[0] == "A":
 		newRecord.append(1.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
 		newRecord.append(0.0)
 		#newRecord.append(1.0)
-	elif record[0] == "F":
+	elif record[0] == "B":
 		newRecord.append(0.0)
 		newRecord.append(1.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
 		#newRecord.append(2.0)
-	elif record[0] == "I":
+	elif record[0] == "C":
 		newRecord.append(0.0)
 		newRecord.append(0.0)
+		newRecord.append(1.0)
+		newRecord.append(0.0)	
 		#newRecord.append(3.0)
+	elif record[0] == "D":
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(1.0)		
+		#newRecord.append(4.0)
+	elif record[0] == "E":
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		#newRecord.append(5.0)
 	else:
-		print("Error @ record", noRecords)
+		print("Unexpected attribute value [0]")
 		sys.exit(1)
 		
-	# Process remaining attributes
-	for i in range(1, len(record)):
+	if record[1] == "A":
+		newRecord.append(1.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		#newRecord.append(1.0)
+	elif record[1] == "B":
+		newRecord.append(0.0)
+		newRecord.append(1.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		#newRecord.append(2.0)
+	elif record[1] == "C":
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(1.0)
+		newRecord.append(0.0)
+		#newRecord.append(3.0)
+	elif record[1] == "D":
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(1.0)		
+		#newRecord.append(4.0)
+	elif record[1] == "E":
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		newRecord.append(0.0)
+		#newRecord.append(5.0)	
+	else:
+		print("Unexpected attribute value [1]")
+		sys.exit(1)	
+		
+	for i in range(2, len(record)):
 		newRecord.append(float(record[i]))
 	
 	# MODIFY ABOVE HERE!
