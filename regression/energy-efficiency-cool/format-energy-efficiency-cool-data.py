@@ -19,10 +19,10 @@
 #  
 #*******************************************************************************
 """
-Format UCI dataset energy-efficiency (predicting heating load)
+Format UCI dataset energy-efficiency (predicting cooling load)
 
 version: 0.1
-author: Peter Rockett, University of Sheffield, 9.7.2020
+author: Peter Rockett, University of Sheffield, 27.7.2020
 """
 #*******************************************************************************
 
@@ -31,7 +31,7 @@ import random
 import sys
 
 # Parameters
-filename = "energy-efficiency"
+filename = "energy-efficiency-cool"
 
 noPartitions = 10
 trainingPercentage = 70.0
