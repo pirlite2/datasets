@@ -19,10 +19,10 @@
 #  
 #*******************************************************************************
 """
-Format UCI dataset winequality-red
+Format UCI dataset qsar-aquatic-toxicity
 
 version: 0.1
-author: Peter Rockett, University of Sheffield, 20.7.2020
+author: Peter Rockett, University of Sheffield, 14.8.2020
 """
 #*******************************************************************************
 
@@ -31,7 +31,7 @@ import random
 import sys
 
 # Parameters
-filename = "winequality-red"
+filename = "qsar_aquatic_toxicity"
 
 noPartitions = 10
 trainingPercentage = 70.0
@@ -82,7 +82,7 @@ def output_binary_record(fDescriptor, record):
 
 fd = open(filename + ".csv", "rU")
 if fd == None:
-	print("Unable to open " + filename + ".csv")
+	print("Unable to open " + filename + ".data")
 	sys.exit(1)
 	
 fRecoded = open(filename + "_recoded.data", "w")
@@ -100,16 +100,17 @@ for line in fd:
 	
 	# Tokenise input line
 	line = line.rstrip("\n")
-	record = line.split(",")
+	record = line.split(";")	# delimited with semicolons!
 	
 	newRecord = []
 	
 	#---------------------------------------------------------------------------
 	# MODIFY BELOW HERE!
 	
-	for i in range(0, len(record)):
+	# X1...X5
+	for i in range(0,9):
 		newRecord.append(float(record[i]))
-	
+		
 	# MODIFY ABOVE HERE!
 	#---------------------------------------------------------------------------
 	

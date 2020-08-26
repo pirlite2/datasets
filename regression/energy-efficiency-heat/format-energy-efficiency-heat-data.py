@@ -108,77 +108,78 @@ for line in fd:
 	# MODIFY BELOW HERE!
 	
 	# X1...X5
-	for i in range(0, 5):
+	for i in range(0,5):
 		newRecord.append(float(record[i]))
 		
 	# X6
-	if record[5] == "2":
-		newRecord.append(1.0)
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-	elif record[5] == "3":
-		newRecord.append(0.0)
-		newRecord.append(1.0)
-		newRecord.append(0.0)		
-	elif record[5] == "4":
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-		newRecord.append(1.0)
-	elif record[5] == "5":
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-	else:
-		print("Unrecognised value for X6", record[5])
-		sys.exit(1)
+	#if record[5] == "2":
+		#newRecord.append(1.0)
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+	#elif record[5] == "3":
+		#newRecord.append(0.0)
+		#newRecord.append(1.0)
+		#newRecord.append(0.0)		
+	#elif record[5] == "4":
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+		#newRecord.append(1.0)
+	#elif record[5] == "5":
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+	#else:
+		#print("Unrecognised value for X6", record[5])
+		#sys.exit(1)
 		
-	#newRecord.append(float(record[5]))
+	newRecord.append(float(record[5]))
+	
 	
 	# X7
 	newRecord.append(float(record[6]))
 
 	# X8
-	if record[7] == "0":
-		newRecord.append(1.0)
-		newRecord.append(0.0)
-		newRecord.append(0.0)		
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-	elif record[7] == "1":
-		newRecord.append(0.0)
-		newRecord.append(1.0)
-		newRecord.append(0.0)		
-		newRecord.append(0.0)
-		newRecord.append(0.0)				
-	elif record[7] == "2":
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-		newRecord.append(1.0)		
-		newRecord.append(0.0)
-		newRecord.append(0.0)	
-	elif record[7] == "3":
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-		newRecord.append(0.0)		
-		newRecord.append(1.0)
-		newRecord.append(0.0)
-	elif record[7] == "4":
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-		newRecord.append(0.0)		
-		newRecord.append(0.0)
-		newRecord.append(1.0)
-	elif record[7] == "5":
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-		newRecord.append(0.0)		
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-	else:
-		print("Unrecognised value for X7")
-		sys.exit(1)
+	#if record[7] == "0":
+		#newRecord.append(1.0)
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)		
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+	#elif record[7] == "1":
+		#newRecord.append(0.0)
+		#newRecord.append(1.0)
+		#newRecord.append(0.0)		
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)				
+	#elif record[7] == "2":
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+		#newRecord.append(1.0)		
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)	
+	#elif record[7] == "3":
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)		
+		#newRecord.append(1.0)
+		#newRecord.append(0.0)
+	#elif record[7] == "4":
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)		
+		#newRecord.append(0.0)
+		#newRecord.append(1.0)
+	#elif record[7] == "5":
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)		
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+	#else:
+		#print("Unrecognised value for X7")
+		#sys.exit(1)
 		
-	#newRecord.append(float(record[7]))
+	newRecord.append(float(record[7]))
 		
 	# y1
 	newRecord.append(float(record[8]))
