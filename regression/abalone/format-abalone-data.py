@@ -109,17 +109,17 @@ for line in fd:
 	
 	# Recode categorical attribute
 	if record[0] == "M":
-		newRecord.append(1.0)
-		newRecord.append(0.0)
 		#newRecord.append(1.0)
-	elif record[0] == "F":
-		newRecord.append(0.0)
+		#newRecord.append(0.0)
 		newRecord.append(1.0)
-		#newRecord.append(2.0)
+	elif record[0] == "F":
+		#newRecord.append(0.0)
+		#newRecord.append(1.0)
+		newRecord.append(2.0)
 	elif record[0] == "I":
-		newRecord.append(0.0)
-		newRecord.append(0.0)
-		#newRecord.append(3.0)
+		#newRecord.append(0.0)
+		#newRecord.append(0.0)
+		newRecord.append(3.0)
 	else:
 		print("Error @ record", noRecords)
 		sys.exit(1)

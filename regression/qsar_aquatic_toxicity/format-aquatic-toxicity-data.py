@@ -19,10 +19,10 @@
 #  
 #*******************************************************************************
 """
-Format UCI dataset energy-efficiency (predicting heating load)
+Format UCI dataset qsar-aquatic-toxicity
 
 version: 0.1
-author: Peter Rockett, University of Sheffield, 9.7.2020
+author: Peter Rockett, University of Sheffield, 14.8.2020
 """
 #*******************************************************************************
 
@@ -31,7 +31,7 @@ import random
 import sys
 
 # Parameters
-filename = "energy-efficiency-heat"
+filename = "qsar_aquatic_toxicity"
 
 noPartitions = 10
 trainingPercentage = 70.0
@@ -100,7 +100,7 @@ for line in fd:
 	
 	# Tokenise input line
 	line = line.rstrip("\n")
-	record = line.split(",")
+	record = line.split(";")	# delimited with semicolons!
 	
 	newRecord = []
 	
@@ -108,82 +108,9 @@ for line in fd:
 	# MODIFY BELOW HERE!
 	
 	# X1...X5
-	for i in range(0,5):
+	for i in range(0,9):
 		newRecord.append(float(record[i]))
 		
-	# X6
-	#if record[5] == "2":
-		#newRecord.append(1.0)
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)
-	#elif record[5] == "3":
-		#newRecord.append(0.0)
-		#newRecord.append(1.0)
-		#newRecord.append(0.0)		
-	#elif record[5] == "4":
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)
-		#newRecord.append(1.0)
-	#elif record[5] == "5":
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)
-	#else:
-		#print("Unrecognised value for X6", record[5])
-		#sys.exit(1)
-		
-	newRecord.append(float(record[5]))
-	
-	
-	# X7
-	newRecord.append(float(record[6]))
-
-	# X8
-	#if record[7] == "0":
-		#newRecord.append(1.0)
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)		
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)
-	#elif record[7] == "1":
-		#newRecord.append(0.0)
-		#newRecord.append(1.0)
-		#newRecord.append(0.0)		
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)				
-	#elif record[7] == "2":
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)
-		#newRecord.append(1.0)		
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)	
-	#elif record[7] == "3":
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)		
-		#newRecord.append(1.0)
-		#newRecord.append(0.0)
-	#elif record[7] == "4":
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)		
-		#newRecord.append(0.0)
-		#newRecord.append(1.0)
-	#elif record[7] == "5":
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)		
-		#newRecord.append(0.0)
-		#newRecord.append(0.0)
-	#else:
-		#print("Unrecognised value for X7")
-		#sys.exit(1)
-		
-	newRecord.append(float(record[7]))
-		
-	# y1
-	newRecord.append(float(record[8]))
-	
 	# MODIFY ABOVE HERE!
 	#---------------------------------------------------------------------------
 	
