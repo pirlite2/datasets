@@ -12,7 +12,10 @@ regression/check-binary-dat-file/CDataset-pir.h
 *_test-*.data
 *_recoded.data
 
+# Executables
 check-binary-dat-file
+hinge-loss
+
 
 # Omit CodeBlocks-specific files
 *.cbp
@@ -21,6 +24,8 @@ check-binary-dat-file
 bin/
 obj/
 
+*.log
+*_report
 
 
 

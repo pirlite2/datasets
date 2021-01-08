@@ -19,10 +19,10 @@
 #  
 #*******************************************************************************
 """
-Format UCI dataset: yacht-hydrodynamics
+Format UCI dataset: australian-credit-approval
 
 version: 0.1
-author: Peter Rockett, University of Sheffield, 20.7.2020
+author: Peter Rockett, University of Sheffield, 5.1.2021
 """
 #*******************************************************************************
 
@@ -31,7 +31,7 @@ import random
 import sys
 
 # Parameters
-filename = "yacht-hydrodynamics"
+filename = "australian"
 
 noPartitions = 10
 trainingPercentage = 70.0
@@ -44,10 +44,14 @@ assert trainingPercentage + validationPercentage + testPercentage == 100.0, "Per
 def output_record(fDescriptor, record):
 	"Output individual record to text file"
 	
-	for i in range(0,len(record)):
+	recordLength = len(record)
+	
+	for i in range(0,recordLength - 1):
 		fDescriptor.write(str(record[i]))
-		if i < len(record) - 1:
-			fDescriptor.write(",")
+		fDescriptor.write(",")
+	
+	tagValue = int(record[recordLength -1])
+	fDescriptor.write(str(tagValue))
 	fDescriptor.write("\n")	
 	
 	return
@@ -65,24 +69,26 @@ def output_binary_header(fDescriptor, patternVectorLength, noExamples):
 #-------------------------------------------------------------------------------
 
 def output_binary_record(fDescriptor, record):
-	"Write individual record to binary DAT file as double & tag value as a double"
+	"Write individual record to binary DAT file as double & tag value as a int"
 	
 	recordlength = len(record)
 	
 	# Write pattern vector
-	for i in range(0, recordLength - 1):
+	for i in range(0, recordLength-1):
 		fDescriptor.write(np.double(record[i]))
 
-	# Write tag value
-	fDescriptor.write(np.double(record[recordLength - 1]))
-	
+	# Write tag value as an int
+	fDescriptor.write(np.int32(record[recordLength - 1]))
+		
 	return
 
 #*******************************************************************************
 
-fd = open(filename + ".csv", "rU")
+# Main program
+
+fd = open(filename + ".dat", "r")
 if fd == None:
-	print("Unable to open " + filename + ".csv")
+	print("Unable to open " + filename + ".dat")
 	sys.exit(1)
 	
 fRecoded = open(filename + "_recoded.data", "w")
@@ -100,7 +106,7 @@ for line in fd:
 	
 	# Tokenise input line
 	line = line.rstrip("\n")
-	record = line.split(",")
+	record = line.split(" ")
 
 	newRecord = []
 	
@@ -172,15 +178,15 @@ for n in range(0, noPartitions):
 		selectionArray[r] = True
 		noValidationPatternsEmitted += 1		
 	assert noValidationPatternsEmitted == noValidationExamples
-		
+	
 	# Output training dataset
 	output_binary_header(fTrainBin, recordLength - 1, noTrainingExamples)
 	noTrainingPatternsEmitted = 0
 	for i in range(0, noRecords):
 		if selectionArray[i] == False:
+			noTrainingPatternsEmitted += 1	
 			output_record(fTrain, dataset[i])
 			output_binary_record(fTrainBin, dataset[i])
-			noTrainingPatternsEmitted += 1	
 	assert noTrainingPatternsEmitted == noTrainingExamples
 			
 	fTrain.close()

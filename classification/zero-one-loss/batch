@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# $1 = dataset name
+
+for fold in {0..9}
+    do
+    for attempt in {1..30}
+        do
+        ./zero-one-loss $1 $fold $attempt
+        done
+    done
+
+#cd results
+#./select-best-results.py $1
+
+#mv $1* $1/
+
+#cd ..
+
+
+
+
