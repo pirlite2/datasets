@@ -1,4 +1,4 @@
-Description of the German credit dataset.
+﻿Description of the German credit dataset.
 
 1. Title: German Credit data
 
@@ -69,7 +69,7 @@ Attribute 4:  (qualitative)
 Attribute 5:  (numerical)
 	      Credit amount
 
-Attibute 6:  (qualitative)
+Attribute 6:  (qualitative)
 	      Savings account/bonds
 	      A61 :          ... <  100 DM
 	      A62 :   100 <= ... <  500 DM
@@ -86,7 +86,7 @@ Attribute 7:  (qualitative)
 	      A75 :       .. >= 7 years
 
 Attribute 8:  (numerical)
-	      Installment rate in percentage of disposable income
+	      Instalment rate in percentage of disposable income
 
 Attribute 9:  (qualitative)
 	      Personal status and sex
@@ -117,7 +117,7 @@ Attribute 13: (numerical)
 	      Age in years
 
 Attribute 14: (qualitative)
-	      Other installment plans 
+	      Other instalment plans 
 	      A141 : bank
 	      A142 : stores
 	      A143 : none

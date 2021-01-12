@@ -4,6 +4,7 @@
 // REVISION HISTORY:
 // From tuning-ad-mt regression program -- pir -- 6.1.2021
 // Replaced increment of shared variable g_uNoSubgradients with __atomic_fetch_add(&g_uNoSubgradients, 1, __ATOMIC_ACQ_REL) -- pir -- 8.1.2021
+// Used SetConstantNodeIndex_mt() & ExtractConstantTreeNodes_mt() in ObjectiveFunction_mt() to prevent race hazard -- pir -- 8.1.2021
 
 //*****************************************************************************
 
@@ -83,8 +84,11 @@ uint32_t g_uNoTreeEvaluations;	// No of tree evaluations
 // NLOpt optimiser settings
 const double g_dNLOptRelTol = 1e-4;
 const uint32_t g_uNLOptMaxEvaluations = 50;
-double g_dLambda;
+double g_dLambda = 0.0;
+
 uint32_t g_uNoSubgradients = 0; // No. of sub-gradient uses; used by both threads so incremented using __atomic_fetch_add
+uint32_t g_uNoMaxEvaluations = 0;
+
 #define USE_MULTIPLE_THREADS 1
 
 //-----------------------------------------------------------------------------
@@ -337,9 +341,8 @@ CFitnessVector ObjectiveFunction(const CHROMOSOME pTree)
 			{
 			hingeLoss += max(1.0 + y, 0.0);
 			}
-		else
+		else    // label == 1
 			{
-			// label == 1
 			hingeLoss += max(1.0 - y, 0.0);
 			}
 
@@ -378,9 +381,8 @@ void* ObjectiveFunction_mt(void* pvThreadArgs)
 			{
 			hingeLoss += max(1.0 + y, 0.0);
 			}
-		else
+		else    // label == 1
 			{
-			// label == 1
 			hingeLoss += max(1.0 - y, 0.0);
 			}
 
@@ -426,9 +428,9 @@ double nloptObjectiveFn(unsigned n, const double* padConstants, double* grad, vo
 			{
 			hingeLoss += max(1.0 + y, 0.0);
 			}
-		else
+		else    // label == 1
 			{
-			// label == 1
+
 			hingeLoss += max(1.0 - y, 0.0);
 			}
 
@@ -460,9 +462,9 @@ double nloptObjectiveFn(unsigned n, const double* padConstants, double* grad, vo
 						// do nothing! zero gradient
 						}
 					}
-				else
+				else    // label == 1
 					{
-					// label == 1
+
 					if(y <= +1.0)
 						{
 						if(y == 1.0)
@@ -525,9 +527,9 @@ double nloptObjectiveFn_mt(unsigned n, const double* padConstants, double* grad,
 			{
 			hingeLoss += max(1.0 + y, 0.0);
 			}
-		else
+		else    // label == 1
 			{
-			// label == 1
+
 			hingeLoss += max(1.0 - y, 0.0);
 			}
 
@@ -559,9 +561,8 @@ double nloptObjectiveFn_mt(unsigned n, const double* padConstants, double* grad,
 						// do nothing! zero gradient
 						}
 					}
-				else
+				else    // label == 1
 					{
-					// label == 1
 					if(y <= +1.0)
 						{
 						if(y == 1.0)
@@ -881,11 +882,10 @@ int main(int argc, char* argv[])
 	// Load all datasets & repeat parameter
 	// argv[1] = filename (e.g. australian)
 	// argv[2] = fold index [0..9]
-	// argv[3] = lambda - regularisation constant
-	// argv[4] = attempt \in [1..30]
-	if(argc != 5)
+    // argv[3] = attempt \in [1..30]
+	if(argc != 4)
 		{
-		ErrorHandler("Expecting four command line parameters");
+		ErrorHandler("Expecting 3 command line parameters");
 		}
 
 	char szFilename[128];
@@ -894,11 +894,11 @@ int main(int argc, char* argv[])
 	int32_t nFoldIndex = strtol(argv[2], NULL, 10);
 	assert((nFoldIndex >= 0) and (nFoldIndex <= 9));
 
-	g_dLambda = strtod(argv[3], NULL);
-	assert(g_dLambda >= 0.0);
-	cout << "lambda = " << g_dLambda << endl;   // TEST
+//	g_dLambda = strtod(argv[3], NULL);
+//	assert(g_dLambda >= 0.0);
+//	cout << "lambda = " << g_dLambda << endl;   // TEST
 
-	int32_t nAttempt = strtol(argv[4], NULL, 10);
+	int32_t nAttempt = strtol(argv[3], NULL, 10);
 	assert((nAttempt >= 1) and (nAttempt <= 30));
 
 	char szTrainingsSetName[256];
@@ -917,7 +917,7 @@ int main(int argc, char* argv[])
 	cout << "opening: " << szValidationSetName << endl;	// TEST
 	cout << "opening: " << szTestSetName << endl;	// TEST
 
-	//StandardiseDatasets();
+	StandardiseDatasets();
 
 	g_uNoInitialisationRepeats = (static_cast<uint32_t>(nFoldIndex) + 1) + (10 * (nAttempt - 1));
 	g_pstGP_Parameters = new stGP_Parameters_t(g_lnGP_BaseSeed, g_uNoInitialisationRepeats);
@@ -1250,14 +1250,7 @@ int main(int argc, char* argv[])
 	fprintf(pReportFile, "%d, %lf, %lf, %u, %u\n", nFoldIndex, dMinValidationError, dTestError, uNoBestValidationNodes, uBestValidationRank);
 	fclose(pReportFile);
 
-	// Output best test
-	//	stGPNode_t* pBestTree = Population[uMinTestIndex];
-	//	char szStringForTree[4096];
-	//	strcpy(szStringForTree, "");
-	//	TreeToString(pBestTree, szStringForTree, enTreeToStringMaths);
-	//	cout << szStringForTree << endl;
-
-	// Subgradient use reporting
+	// Sub-gradient use reporting
 	if(g_uNoSubgradients > 0)
 		{
 		char szSugradientFilename[128];
@@ -1266,6 +1259,10 @@ int main(int argc, char* argv[])
 		fprintf(pSubgradientFile, "%d\n", g_uNoSubgradients);
 		fclose(pSubgradientFile);
 		}
+
+	#ifdef USE_DUAL_NUMBERS
+	cout << "fraction of iterations exceeding iteration limit = " << static_cast<double>(g_uNoMaxEvaluations) / static_cast<double>(g_uMaxNoTreeEvaluations) << endl;
+	#endif // USE_DUAL_NUMBERS
 
 	// Tidy-up
 	delete pMutationSelector;

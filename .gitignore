@@ -14,6 +14,7 @@ regression/check-binary-dat-file/CDataset-pir.h
 
 # Executables
 check-binary-dat-file
+zero-one-loss
 hinge-loss
 
 
@@ -24,8 +25,7 @@ hinge-loss
 bin/
 obj/
 
-*.log
-*_report
+
 
 
 
