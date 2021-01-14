@@ -1,4 +1,4 @@
-Description of the Dataset:
+﻿Description of the Dataset:
 
 THIS CREDIT DATA ORIGINATES FROM QUINLAN (see below).   
 
@@ -33,7 +33,7 @@ THIS CREDIT DATA ORIGINATES FROM QUINLAN (see below).
 7.  Attribute Information:   THERE ARE 6 NUMERICAL AND 8 CATEGORICAL ATTRIBUTES.
  
                              THE LABELS HAVE BEEN CHANGED FOR THE CONVENIENCE
-                             OF THE STATISTICAL ALGORITHMS.   FOR EXAMPLE,
+                             OF THE STATISTICAL ALGORITHMS. FOR EXAMPLE,
                              ATTRIBUTE 4 ORIGINALLY HAD 3 LABELS p,g,gg AND
                              THESE HAVE BEEN CHANGED TO LABELS 1,2,3.
                              
@@ -47,7 +47,7 @@ THIS CREDIT DATA ORIGINATES FROM QUINLAN (see below).
     A5:  1, 2,3,4,5, 6,7,8,9,10,11,12,13,14    CATEGORICAL
          ff,d,i,k,j,aa,m,c,w, e, q, r,cc, x 
          
-    A6:	 1, 2,3, 4,5,6,7,8,9    CATEGORICAL
+    A6:  1,2,3,4,5,6,7,8,9    CATEGORICAL
         ff,dd,j,bb,v,n,o,h,z 
 
     A7:	continuous.
