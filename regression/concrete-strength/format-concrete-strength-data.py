@@ -23,6 +23,8 @@ Format UCI dataset concrete-strength
 
 version: 0.1
 author: Peter Rockett, University of Sheffield, 9.7.2020
+
+version 0.2: Removed test code
 """
 #*******************************************************************************
 
@@ -110,7 +112,9 @@ for line in fd:
 	for i in range(0, len(record)):
 		newRecord.append(float(record[i]))
 	
-	newRecord.append(float(record[7]))
+	#newRecord.append(float(record[7]))
+	#print(newRecord)
+	#sys.exit(-1)
 	
 	# MODIFY ABOVE HERE!
 	#---------------------------------------------------------------------------

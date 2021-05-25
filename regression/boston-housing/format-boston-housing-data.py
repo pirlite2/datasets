@@ -23,6 +23,9 @@ Format UCI dataset: abalone
 
 version: 0.1
 author: Peter Rockett, University of Sheffield, 9.7.2020
+
+version 0.2: Removed debugging code
+
 """
 #*******************************************************************************
 
@@ -109,8 +112,6 @@ for line in fd:
 	
 	for i in range(0, len(record)):
 		newRecord.append(float(record[i]))
-	
-	newRecord.append(float(record[7]))
 	
 	# MODIFY ABOVE HERE!
 	#---------------------------------------------------------------------------
