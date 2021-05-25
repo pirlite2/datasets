@@ -112,10 +112,6 @@ for line in fd:
 	for i in range(0, len(record)):
 		newRecord.append(float(record[i]))
 	
-	#newRecord.append(float(record[7]))
-	#print(newRecord)
-	#sys.exit(-1)
-	
 	# MODIFY ABOVE HERE!
 	#---------------------------------------------------------------------------
 	
