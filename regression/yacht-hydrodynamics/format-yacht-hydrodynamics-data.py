@@ -80,7 +80,7 @@ def output_binary_record(fDescriptor, record):
 
 #*******************************************************************************
 
-fd = open(filename + ".csv", "rU")
+fd = open(filename + ".csv", "r")
 if fd == None:
 	print("Unable to open " + filename + ".csv")
 	sys.exit(1)

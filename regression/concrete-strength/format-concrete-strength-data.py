@@ -82,7 +82,7 @@ def output_binary_record(fDescriptor, record):
 
 #*******************************************************************************
 
-fd = open(filename + ".data", "rU")
+fd = open(filename + ".data", "r")
 if fd == None:
 	print("Unable to open " + filename + ".data")
 	sys.exit(1)
